@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_RATING;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_REFERRAL_STATUS;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_STATUS;
@@ -26,6 +27,7 @@ import seedu.hireshell.model.person.Email;
 import seedu.hireshell.model.person.Name;
 import seedu.hireshell.model.person.Person;
 import seedu.hireshell.model.person.Phone;
+import seedu.hireshell.model.person.Rating;
 import seedu.hireshell.model.person.ReferralStatus;
 import seedu.hireshell.model.person.Status;
 import seedu.hireshell.model.role.Role;
@@ -44,11 +46,13 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_RATING + "RATING] "
             + "[" + PREFIX_STATUS + "STATUS] "
             + "[" + PREFIX_REFERRAL_STATUS + "REFERRAL_STATUS] "
             + "[" + PREFIX_ROLE + "ROLE]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
+            + PREFIX_RATING + "9.0 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
@@ -101,12 +105,13 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
+        Rating updatedRating = editPersonDescriptor.getRating().orElse(personToEdit.getRating());
         Status updatedStatus = editPersonDescriptor.getStatus().orElse(personToEdit.getStatus());
         Set<Role> updatedRoles = editPersonDescriptor.getRoles().orElse(personToEdit.getRoles());
         ReferralStatus updatedReferralStatus = editPersonDescriptor.getReferralStatus()
                 .orElse(personToEdit.getReferralStatus());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedStatus, updatedRoles, updatedReferralStatus);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedRating, updatedStatus, updatedRoles, updatedReferralStatus);
     }
 
     @Override
@@ -143,7 +148,6 @@ public class EditCommand extends Command {
         private Email email;
         private Status status;
         private Set<Role> roles;
-        private ReferralStatus referralStatus;
 
         public EditPersonDescriptor() {}
 
@@ -155,6 +159,7 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
+            setRating(toCopy.rating);
             setStatus(toCopy.status);
             setRoles(toCopy.roles);
             setReferralStatus(toCopy.referralStatus);
@@ -164,7 +169,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, status, roles, referralStatus);
+            return CollectionUtil.isAnyNonNull(name, phone, email, rating, status, roles, referralStatus);
         }
 
         public void setName(Name name) {
@@ -189,6 +194,14 @@ public class EditCommand extends Command {
 
         public Optional<Email> getEmail() {
             return Optional.ofNullable(email);
+        }
+
+        public void setRating(Rating rating) {
+            this.rating = rating;
+        }
+
+        public Optional<Rating> getRating() {
+            return Optional.ofNullable(rating);
         }
 
         public void setStatus(Status status) {
@@ -239,6 +252,7 @@ public class EditCommand extends Command {
             return Objects.equals(name, otherEditPersonDescriptor.name)
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
+                    && Objects.equals(rating, otherEditPersonDescriptor.rating)
                     && Objects.equals(status, otherEditPersonDescriptor.status)
                     && Objects.equals(roles, otherEditPersonDescriptor.roles)
                     && Objects.equals(referralStatus, otherEditPersonDescriptor.referralStatus);
@@ -250,6 +264,7 @@ public class EditCommand extends Command {
                     .add("name", name)
                     .add("phone", phone)
                     .add("email", email)
+                    .add("rating", rating)
                     .add("status", status)
                     .add("roles", roles)
                     .add("referralStatus", referralStatus)

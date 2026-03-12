@@ -14,6 +14,7 @@ import seedu.hireshell.model.person.Email;
 import seedu.hireshell.model.person.Name;
 import seedu.hireshell.model.person.Person;
 import seedu.hireshell.model.person.Phone;
+import seedu.hireshell.model.person.Rating;
 import seedu.hireshell.model.person.ReferralStatus;
 import seedu.hireshell.model.person.Status;
 import seedu.hireshell.model.role.Role;
@@ -27,6 +28,7 @@ class JsonAdaptedPerson {
 
     private final String name;
     private final String phone;
+    private final String rating;
     private final String email;
     private final List<JsonAdaptedRole> roles = new ArrayList<>();
     private final String status;
@@ -37,11 +39,12 @@ class JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("status") String status,
-            @JsonProperty("roles") List<JsonAdaptedRole> roles, @JsonProperty("referralStatus") String referralStatus) {
+            @JsonProperty("email") String email, @JsonProperty("rating") String rating,
+            @JsonProperty("status") String status, @JsonProperty("roles") List<JsonAdaptedRole> roles, @JsonProperty("referralStatus") String referralStatus) {
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.rating = rating;
         this.status = status;
         if (roles != null) {
             this.roles.addAll(roles);
@@ -56,6 +59,7 @@ class JsonAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
+        rating = source.getRating().toString();
         status = source.getStatus().value;
         roles.addAll(source.getRoles().stream()
                 .map(JsonAdaptedRole::new)
@@ -99,6 +103,14 @@ class JsonAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
+        if (rating == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Rating.class.getSimpleName()));
+        }
+        if (!Rating.isValidRating(rating)) {
+            throw new IllegalValueException(Rating.MESSAGE_CONSTRAINTS);
+        }
+        final Rating modelRating = new Rating(rating);
+
         if (status == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Status.class.getSimpleName()));
         }
@@ -119,7 +131,7 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(ReferralStatus.MESSAGE_CONSTRAINTS);
         }
 
-        return new Person(modelName, modelPhone, modelEmail, modelStatus, modelRoles, modelReferralStatus);
+        return new Person(modelName, modelPhone, modelEmail, modelRating, modelStatus, modelRoles, modelReferralStatus);
     }
 
 }

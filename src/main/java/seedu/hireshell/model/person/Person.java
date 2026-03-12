@@ -22,6 +22,7 @@ public class Person {
     private final Email email;
 
     // Data fields
+    private final Rating rating;
     private final Status status;
     private final Set<Role> roles = new HashSet<>();
     private final ReferralStatus referralStatus;
@@ -29,11 +30,12 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Status status, Set<Role> roles, ReferralStatus referralStatus) {
+    public Person(Name name, Phone phone, Email email, Rating rating, Status status, Set<Role> roles, ReferralStatus referralStatus) {
         requireAllNonNull(name, phone, email, status, roles, referralStatus);
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.rating = rating;
         this.status = status;
         this.roles.addAll(roles);
         this.referralStatus = referralStatus;
@@ -49,6 +51,10 @@ public class Person {
 
     public Email getEmail() {
         return email;
+    }
+
+    public Rating getRating() {
+        return rating;
     }
 
     public Status getStatus() {
@@ -99,6 +105,7 @@ public class Person {
         return name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
+                && rating.equals(otherPerson.rating)
                 && status.equals(otherPerson.status)
                 && roles.equals(otherPerson.roles)
                 && referralStatus.equals(otherPerson.referralStatus);
@@ -107,7 +114,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, status, roles, referralStatus);
+        return Objects.hash(name, phone, email, rating, status, roles, referralStatus);
     }
 
     @Override
@@ -116,6 +123,7 @@ public class Person {
                 .add("name", name)
                 .add("phone", phone)
                 .add("email", email)
+                .add("rating", rating)
                 .add("status", status)
                 .add("roles", roles)
                 .add("referral", referralStatus)

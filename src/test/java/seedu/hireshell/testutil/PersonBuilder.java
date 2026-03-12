@@ -7,6 +7,7 @@ import seedu.hireshell.model.person.Email;
 import seedu.hireshell.model.person.Name;
 import seedu.hireshell.model.person.Person;
 import seedu.hireshell.model.person.Phone;
+import seedu.hireshell.model.person.Rating;
 import seedu.hireshell.model.person.ReferralStatus;
 import seedu.hireshell.model.person.Status;
 import seedu.hireshell.model.role.Role;
@@ -20,12 +21,14 @@ public class PersonBuilder {
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
+    public static final String DEFAULT_RATING = "5.0";
     public static final String DEFAULT_STATUS = "Pending";
 
 
     private Name name;
     private Phone phone;
     private Email email;
+    private Rating rating;
     private Set<Role> roles;
     private Status status;
     private ReferralStatus referralStatus;
@@ -37,6 +40,7 @@ public class PersonBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
+        rating = new Rating(DEFAULT_RATING);
         roles = new HashSet<>();
         status = new Status(DEFAULT_STATUS);
         referralStatus = ReferralStatus.NOT_REFERRED;
@@ -49,6 +53,7 @@ public class PersonBuilder {
         name = personToCopy.getName();
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
+        rating = personToCopy.getRating();
         roles = new HashSet<>(personToCopy.getRoles());
         status = personToCopy.getStatus();
         referralStatus = personToCopy.getReferralStatus();
@@ -67,6 +72,14 @@ public class PersonBuilder {
      */
     public PersonBuilder withRoles(String ... roles) {
         this.roles = SampleDataUtil.getRoleSet(roles);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Rating} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withRating(String rating) { // Added withRating method
+        this.rating = new Rating(rating);
         return this;
     }
 
@@ -111,7 +124,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, status, roles, referralStatus);
+        return new Person(name, phone, email, rating, status, roles, referralStatus);
     }
 
 }
