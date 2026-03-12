@@ -12,11 +12,11 @@ import java.util.stream.Stream;
 
 import seedu.hireshell.logic.commands.AddCommand;
 import seedu.hireshell.logic.parser.exceptions.ParseException;
-import seedu.hireshell.model.person.Status;
 import seedu.hireshell.model.person.Email;
 import seedu.hireshell.model.person.Name;
 import seedu.hireshell.model.person.Person;
 import seedu.hireshell.model.person.Phone;
+import seedu.hireshell.model.person.Status;
 import seedu.hireshell.model.tag.Tag;
 
 /**

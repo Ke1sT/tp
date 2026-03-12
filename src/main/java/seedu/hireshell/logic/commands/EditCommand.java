@@ -21,11 +21,11 @@ import seedu.hireshell.commons.util.ToStringBuilder;
 import seedu.hireshell.logic.Messages;
 import seedu.hireshell.logic.commands.exceptions.CommandException;
 import seedu.hireshell.model.Model;
-import seedu.hireshell.model.person.Status;
 import seedu.hireshell.model.person.Email;
 import seedu.hireshell.model.person.Name;
 import seedu.hireshell.model.person.Person;
 import seedu.hireshell.model.person.Phone;
+import seedu.hireshell.model.person.Status;
 import seedu.hireshell.model.tag.Tag;
 
 /**
