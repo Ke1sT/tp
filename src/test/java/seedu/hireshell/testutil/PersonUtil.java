@@ -1,17 +1,17 @@
 package seedu.hireshell.testutil;
 
-import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_ROLE;
+import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import java.util.Set;
 
 import seedu.hireshell.logic.commands.AddCommand;
 import seedu.hireshell.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.hireshell.model.person.Person;
-import seedu.hireshell.model.tag.Tag;
+import seedu.hireshell.model.role.Role;
 
 /**
  * A utility class for Person.
@@ -33,9 +33,9 @@ public class PersonUtil {
         sb.append(PREFIX_NAME + person.getName().fullName + " ");
         sb.append(PREFIX_PHONE + person.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
-        sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
-        person.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
+        sb.append(PREFIX_STATUS + person.getStatus().value + " ");
+        person.getRoles().stream().forEach(
+            s -> sb.append(PREFIX_ROLE + s.roleName + " ")
         );
         return sb.toString();
     }
@@ -48,13 +48,13 @@ public class PersonUtil {
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
-        descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
-        if (descriptor.getTags().isPresent()) {
-            Set<Tag> tags = descriptor.getTags().get();
-            if (tags.isEmpty()) {
-                sb.append(PREFIX_TAG);
+        descriptor.getStatus().ifPresent(address -> sb.append(PREFIX_STATUS).append(address.value).append(" "));
+        if (descriptor.getRoles().isPresent()) {
+            Set<Role> roles = descriptor.getRoles().get();
+            if (roles.isEmpty()) {
+                sb.append(PREFIX_ROLE);
             } else {
-                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
+                roles.forEach(s -> sb.append(PREFIX_ROLE).append(s.roleName).append(" "));
             }
         }
         return sb.toString();

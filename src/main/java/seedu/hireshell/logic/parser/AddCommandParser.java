@@ -1,7 +1,12 @@
 package seedu.hireshell.logic.parser;
 
 import static seedu.hireshell.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.hireshell.logic.parser.CliSyntax.*;
+import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_REFERRAL_STATUS;
+import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_ROLE;
+import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -9,7 +14,7 @@ import java.util.stream.Stream;
 import seedu.hireshell.logic.commands.AddCommand;
 import seedu.hireshell.logic.parser.exceptions.ParseException;
 import seedu.hireshell.model.person.*;
-import seedu.hireshell.model.tag.Tag;
+import seedu.hireshell.model.role.Role;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -23,22 +28,22 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG, PREFIX_REFERRAL_STATUS);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_STATUS, PREFIX_ROLE, PREFIX_REFERRAL_STATUS);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_REFERRAL_STATUS)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_STATUS, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_REFERRAL_STATUS)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_STATUS);
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Status status = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_STATUS).get());
+        Set<Role> roleList = ParserUtil.parseRoles(argMultimap.getAllValues(PREFIX_ROLE));
         ReferralStatus referralStatus = ParserUtil.parseReferralStatus(argMultimap.getValue(PREFIX_REFERRAL_STATUS).get());
 
-        Person person = new Person(name, phone, email, address, tagList, referralStatus);
+        Person person = new Person(name, phone, email, status, roleList, referralStatus);
 
         return new AddCommand(person);
     }

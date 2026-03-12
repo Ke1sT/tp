@@ -41,12 +41,12 @@ public class Messages {
                 .append(person.getPhone())
                 .append("; Email: ")
                 .append(person.getEmail())
-                .append("; Address: ")
-                .append(person.getAddress())
+                .append("; Status: ")
+                .append(person.getStatus())
                 .append("; ReferralStatus: ")
                 .append(person.getReferralStatus())
-                .append("; Tags: ");
-        person.getTags().forEach(builder::append);
+                .append("; Roles: ");
+        person.getRoles().forEach(builder::append);
         return builder.toString();
     }
 

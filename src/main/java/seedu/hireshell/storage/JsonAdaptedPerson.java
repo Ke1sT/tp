@@ -10,9 +10,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.hireshell.commons.exceptions.IllegalValueException;
-import seedu.hireshell.logic.parser.ParserUtil;
-import seedu.hireshell.model.person.*;
-import seedu.hireshell.model.tag.Tag;
+import seedu.hireshell.model.person.Email;
+import seedu.hireshell.model.person.Name;
+import seedu.hireshell.model.person.Person;
+import seedu.hireshell.model.person.Phone;
+import seedu.hireshell.model.person.ReferralStatus;
+import seedu.hireshell.model.person.Status;
+import seedu.hireshell.model.role.Role;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -24,8 +28,8 @@ class JsonAdaptedPerson {
     private final String name;
     private final String phone;
     private final String email;
-    private final String address;
-    private final List<JsonAdaptedTag> tags = new ArrayList<>();
+    private final List<JsonAdaptedRole> roles = new ArrayList<>();
+    private final String status;
     private final String referralStatus;
 
     /**
@@ -33,14 +37,14 @@ class JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tags") List<JsonAdaptedTag> tags, @JsonProperty("referralStatus") String referralStatus) {
+            @JsonProperty("email") String email, @JsonProperty("status") String status,
+            @JsonProperty("roles") List<JsonAdaptedRole> roles, @JsonProperty("referralStatus") String referralStatus) {
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
-        if (tags != null) {
-            this.tags.addAll(tags);
+        this.status = status;
+        if (roles != null) {
+            this.roles.addAll(roles);
         }
         this.referralStatus = referralStatus;
     }
@@ -52,9 +56,9 @@ class JsonAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        address = source.getAddress().value;
-        tags.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
+        status = source.getStatus().value;
+        roles.addAll(source.getRoles().stream()
+                .map(JsonAdaptedRole::new)
                 .collect(Collectors.toList()));
         referralStatus = source.getReferralStatus().name();
     }
@@ -65,10 +69,10 @@ class JsonAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Person toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Role> personRoles = new ArrayList<>();
         final ReferralStatus modelReferralStatus;
-        for (JsonAdaptedTag tag : tags) {
-            personTags.add(tag.toModelType());
+        for (JsonAdaptedRole role : roles) {
+            personRoles.add(role.toModelType());
         }
 
         if (name == null) {
@@ -95,15 +99,15 @@ class JsonAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        if (status == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Status.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+        if (!Status.isValidStatus(status)) {
+            throw new IllegalValueException(Status.MESSAGE_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final Status modelStatus = new Status(status);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<Role> modelRoles = new HashSet<>(personRoles);
 
         if (referralStatus == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ReferralStatus.class.getSimpleName()));
@@ -114,7 +118,7 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(ReferralStatus.MESSAGE_CONSTRAINTS);
         }
 
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelReferralStatus);
+        return new Person(modelName, modelPhone, modelEmail, modelStatus, modelRoles, modelReferralStatus);
     }
 
 }

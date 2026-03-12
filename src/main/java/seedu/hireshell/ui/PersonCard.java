@@ -35,11 +35,11 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
-    private Label address;
+    private Label status;
     @FXML
     private Label email;
     @FXML
-    private FlowPane tags;
+    private FlowPane roles;
     @FXML
     private Label referralStatus;
 
@@ -52,11 +52,11 @@ public class PersonCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
+        status.setText(person.getStatus().value);
         email.setText(person.getEmail().value);
         referralStatus.setText(person.getReferralStatus().toString());
-        person.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        person.getRoles().stream()
+                .sorted(Comparator.comparing(role -> role.roleName))
+                .forEach(role -> roles.getChildren().add(new Label(role.roleName)));
     }
 }

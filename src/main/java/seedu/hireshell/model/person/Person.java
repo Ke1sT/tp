@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.hireshell.commons.util.ToStringBuilder;
-import seedu.hireshell.model.tag.Tag;
+import seedu.hireshell.model.role.Role;
 
 /**
  * Represents a Person in the address book.
@@ -22,20 +22,20 @@ public class Person {
     private final Email email;
 
     // Data fields
-    private final Address address;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Status status;
+    private final Set<Role> roles = new HashSet<>();
     private final ReferralStatus referralStatus;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, ReferralStatus referralStatus) {
-        requireAllNonNull(name, phone, email, address, tags, referralStatus);
+    public Person(Name name, Phone phone, Email email, Status status, Set<Role> roles, ReferralStatus referralStatus) {
+        requireAllNonNull(name, phone, email, status, roles, referralStatus);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
+        this.status = status;
+        this.roles.addAll(roles);
         this.referralStatus = referralStatus;
     }
 
@@ -51,16 +51,16 @@ public class Person {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
+    public Status getStatus() {
+        return status;
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable role set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public Set<Role> getRoles() {
+        return Collections.unmodifiableSet(roles);
     }
 
     public ReferralStatus getReferralStatus() {
@@ -99,15 +99,15 @@ public class Person {
         return name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
-                && address.equals(otherPerson.address)
-                && tags.equals(otherPerson.tags)
+                && status.equals(otherPerson.status)
+                && roles.equals(otherPerson.roles)
                 && referralStatus.equals(otherPerson.referralStatus);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, referralStatus);
+        return Objects.hash(name, phone, email, status, roles, referralStatus);
     }
 
     @Override
@@ -116,8 +116,8 @@ public class Person {
                 .add("name", name)
                 .add("phone", phone)
                 .add("email", email)
-                .add("address", address)
-                .add("tags", tags)
+                .add("status", status)
+                .add("roles", roles)
                 .add("referral", referralStatus)
                 .toString();
     }
