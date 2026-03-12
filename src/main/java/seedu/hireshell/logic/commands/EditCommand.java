@@ -111,7 +111,8 @@ public class EditCommand extends Command {
         ReferralStatus updatedReferralStatus = editPersonDescriptor.getReferralStatus()
                 .orElse(personToEdit.getReferralStatus());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedRating, updatedStatus, updatedRoles, updatedReferralStatus);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedRating, updatedStatus, updatedRoles,
+                updatedReferralStatus);
     }
 
     @Override
@@ -148,6 +149,8 @@ public class EditCommand extends Command {
         private Email email;
         private Status status;
         private Set<Role> roles;
+        private Rating rating;
+        private ReferralStatus referralStatus;
 
         public EditPersonDescriptor() {}
 

@@ -30,7 +30,8 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Rating rating, Status status, Set<Role> roles, ReferralStatus referralStatus) {
+    public Person(Name name, Phone phone, Email email, Rating rating, Status status, Set<Role> roles,
+                  ReferralStatus referralStatus) {
         requireAllNonNull(name, phone, email, status, roles, referralStatus);
         this.name = name;
         this.phone = phone;
@@ -126,7 +127,7 @@ public class Person {
                 .add("rating", rating)
                 .add("status", status)
                 .add("roles", roles)
-                .add("referral", referralStatus)
+                .add("referralStatus", referralStatus)
                 .toString();
     }
 }
