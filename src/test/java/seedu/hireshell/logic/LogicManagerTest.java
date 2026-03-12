@@ -3,10 +3,10 @@ package seedu.hireshell.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.hireshell.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.hireshell.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.hireshell.logic.commands.CommandTestUtil.STATUS_DESC_AMY;
 import static seedu.hireshell.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.hireshell.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.hireshell.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.hireshell.logic.commands.CommandTestUtil.STATUS_DESC_AMY;
 import static seedu.hireshell.testutil.Assert.assertThrows;
 import static seedu.hireshell.testutil.TypicalPersons.AMY;
 

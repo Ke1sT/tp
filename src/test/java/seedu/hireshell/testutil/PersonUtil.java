@@ -1,9 +1,9 @@
 package seedu.hireshell.testutil;
 
-import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;

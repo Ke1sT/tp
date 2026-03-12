@@ -1,13 +1,13 @@
 package seedu.hireshell.testutil;
 
-import static seedu.hireshell.logic.commands.CommandTestUtil.VALID_STATUS_AMY;
-import static seedu.hireshell.logic.commands.CommandTestUtil.VALID_STATUS_BOB;
 import static seedu.hireshell.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.hireshell.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.hireshell.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.hireshell.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.hireshell.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.hireshell.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.hireshell.logic.commands.CommandTestUtil.VALID_STATUS_AMY;
+import static seedu.hireshell.logic.commands.CommandTestUtil.VALID_STATUS_BOB;
 import static seedu.hireshell.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.hireshell.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
