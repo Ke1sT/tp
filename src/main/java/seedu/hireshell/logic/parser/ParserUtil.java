@@ -12,8 +12,8 @@ import seedu.hireshell.logic.parser.exceptions.ParseException;
 import seedu.hireshell.model.person.Email;
 import seedu.hireshell.model.person.Name;
 import seedu.hireshell.model.person.Phone;
-import seedu.hireshell.model.role.Role;
 import seedu.hireshell.model.person.Status;
+import seedu.hireshell.model.role.Role;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
