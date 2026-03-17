@@ -57,7 +57,7 @@ public class PersonCard extends UiPart<Region> {
         rating.setText("Current Rating: " + person.getRating().toString());
         status.setText("Status: " + person.getStatus().value);
         email.setText("Email: " + person.getEmail().value);
-        referralStatus.setText("Refferal Status: " + person.getReferralStatus().toString());
+        referralStatus.setText("Referral Status: " + person.getReferralStatus().toString());
         person.getRoles().stream()
                 .sorted(Comparator.comparing(role -> role.roleName))
                 .forEach(role -> roles.getChildren().add(new Label(role.roleName)));
